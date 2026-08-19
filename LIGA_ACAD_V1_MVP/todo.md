@@ -1,0 +1,22 @@
+# Projeto — Liga Rural M.V.P.
+
+- [x] Definir o modelo de dados para perfis, propriedades e lançamentos financeiros.
+- [x] Criar e aplicar a migração de banco de dados do M.V.P.
+- [x] Implementar a definição de perfil do utilizador: produtor, gestor, estudante, consultor ou administrador.
+- [x] Implementar o cadastro de uma ou mais propriedades por utilizador autenticado.
+- [x] Implementar o registo de receitas com tipo, categoria, descrição, data e valor.
+- [x] Implementar lançamentos de custos de produção, despesas administrativas, impostos e deduções para suportar os cálculos financeiros.
+- [x] Implementar o cálculo automático de saldo do fluxo de caixa.
+- [x] Implementar filtros de fluxo de caixa por dia, mês, trimestre e ano.
+- [x] Implementar o cálculo automático de lucro bruto.
+- [x] Implementar o cálculo automático de lucro líquido.
+- [x] Criar o dashboard com indicadores filtrados pela propriedade selecionada.
+- [x] Aplicar a interface cinematográfica com gradiente teal profundo, laranja queimado, tipografia forte e acentos geométricos.
+- [x] Garantir estados vazios, validações, acessibilidade básica e responsividade.
+- [x] Criar testes unitários para as regras de cálculo e permissões do M.V.P.
+- [x] Validar a aplicação no navegador, em ambiente de computador e telemóvel.
+- [x] Preparar documentação de uso e limitações de escopo do M.V.P.
+- [x] Adicionar estados visuais de carregamento e erro nas páginas de painel, propriedades, fluxo de caixa e perfil.
+- [x] Cobrir em testes o bloqueio de acesso a dados de uma propriedade que não pertença ao utilizador autenticado.
+- [x] Validar em ambiente controlado os fluxos de criação de perfil, propriedade, lançamento e filtros sem persistir dados de demonstração do utilizador.
+- [x] Validar por teste de rota o bloqueio de utilizador autenticado ao consultar dados financeiros de propriedade alheia.
