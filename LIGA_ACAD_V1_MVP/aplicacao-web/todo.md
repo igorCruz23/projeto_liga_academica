@@ -1,0 +1,33 @@
+# Projeto — Liga Rural M.V.P.
+
+- [x] Definir o modelo de dados para perfis, propriedades e lançamentos financeiros.
+- [x] Criar e aplicar a migração de banco de dados do M.V.P.
+- [x] Implementar a definição de perfil do utilizador: produtor, gestor, estudante, consultor ou administrador.
+- [x] Implementar o cadastro de uma ou mais propriedades por utilizador autenticado.
+- [x] Implementar o registo de receitas com tipo, categoria, descrição, data e valor.
+- [x] Implementar lançamentos de custos de produção, despesas administrativas, impostos e deduções para suportar os cálculos financeiros.
+- [x] Implementar o cálculo automático de saldo do fluxo de caixa.
+- [x] Implementar filtros de fluxo de caixa por dia, mês, trimestre e ano.
+- [x] Implementar o cálculo automático de lucro bruto.
+- [x] Implementar o cálculo automático de lucro líquido.
+- [x] Criar o dashboard com indicadores filtrados pela propriedade selecionada.
+- [x] Aplicar a interface cinematográfica com gradiente teal profundo, laranja queimado, tipografia forte e acentos geométricos.
+- [x] Garantir estados vazios, validações, acessibilidade básica e responsividade.
+- [x] Criar testes unitários para as regras de cálculo e permissões do M.V.P.
+- [x] Validar a aplicação no navegador, em ambiente de computador e telemóvel.
+- [x] Preparar documentação de uso e limitações de escopo do M.V.P.
+- [x] Adicionar estados visuais de carregamento e erro nas páginas de painel, propriedades, fluxo de caixa e perfil.
+- [x] Cobrir em testes o bloqueio de acesso a dados de uma propriedade que não pertença ao utilizador autenticado.
+- [x] Validar em ambiente controlado os fluxos de criação de perfil, propriedade, lançamento e filtros sem persistir dados de demonstração do utilizador.
+- [x] Validar por teste de rota o bloqueio de utilizador autenticado ao consultar dados financeiros de propriedade alheia.
+- [x] Elaborar relatório técnico sobre o processo de construção, tecnologias, arquitetura e validações do website.
+- [x] Definir e documentar a regra de remoção segura de propriedades para gestores e administradores.
+- [x] Implementar a inativação de propriedades com controlo de acesso por perfil.
+- [x] Adicionar a ação de remoção na interface de propriedades apenas para perfis autorizados.
+- [x] Testar a autorização, a preservação dos lançamentos e o comportamento da remoção segura.
+- [x] Testar que um gestor não pode inativar propriedade de outro titular.
+- [x] Testar que a inativação não executa exclusão nem alteração de lançamentos financeiros.
+- [x] Testar o helper real de inativação para comprovar que `ruralProperties.isActive` e `updatedAt` são atualizados, sem alterar `financialEntries`.
+- [x] Criar e enviar ao repositório remoto o commit da remoção segura de propriedades.
+- [x] Configurar um remoto GitHub autenticável e enviar o commit `756a4b8`, pois o remoto gerenciado atual não aceita envio pelo terminal.
+- [ ] Sincronizar o código e o histórico do Liga Rural com o repositório GitHub igorCruz23/projeto_liga_academica sem sobrescrever conteúdo remoto existente.

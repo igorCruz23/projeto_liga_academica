@@ -21,12 +21,6 @@ Depois de entrar na plataforma, defina o perfil em **Meu perfil**. Em seguida, c
 
 Na área **Fluxo de caixa**, crie lançamentos indicando tipo, categoria, descrição, data e valor. A tela permite selecionar o intervalo de análise e a data de referência. Os indicadores são recalculados automaticamente para a propriedade e janela de tempo selecionadas.
 
-## Estrutura do repositório
-
-Os documentos e ficheiros já presentes nesta pasta foram preservados como material académico de referência. O código fonte completo e executável do website está em [`aplicacao-web/`](./aplicacao-web/), incluindo frontend, servidor, banco de dados, migrações, testes, documentação técnica e a funcionalidade de remoção segura de propriedades.
-
-Para executar ou validar a aplicação, aceda à pasta `LIGA_ACAD_V1_MVP/aplicacao-web` e utilize os comandos listados a seguir.
-
 ## Desenvolvimento e validação
 
 | Comando | Finalidade |
@@ -36,7 +30,7 @@ Para executar ou validar a aplicação, aceda à pasta `LIGA_ACAD_V1_MVP/aplicac
 | `pnpm check` | Executa a verificação estática de TypeScript. |
 | `pnpm build` | Gera a versão de produção. |
 
-Na validação da versão transferida, a suíte contém **dezasseis testes** e cobre fórmulas de resultado, intervalos temporais, sessão, autorização por titularidade, fluxo financeiro controlado e inativação segura de propriedades. A remoção é lógica: atualiza o estado da propriedade, preservando os lançamentos financeiros associados.
+Na validação desta versão, a suíte contém **sete testes** e cobre as fórmulas de resultado, os intervalos temporais, o encerramento de sessão e a proteção contra acessos não autenticados às rotas financeiras.
 
 ## Limites do primeiro incremento
 
