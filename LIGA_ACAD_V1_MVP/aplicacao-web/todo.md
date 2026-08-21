@@ -30,4 +30,25 @@
 - [x] Testar o helper real de inativação para comprovar que `ruralProperties.isActive` e `updatedAt` são atualizados, sem alterar `financialEntries`.
 - [x] Criar e enviar ao repositório remoto o commit da remoção segura de propriedades.
 - [x] Configurar um remoto GitHub autenticável e enviar o commit `756a4b8`, pois o remoto gerenciado atual não aceita envio pelo terminal.
-- [ ] Sincronizar o código e o histórico do Liga Rural com o repositório GitHub igorCruz23/projeto_liga_academica sem sobrescrever conteúdo remoto existente.
+- [x] Integrar o código do Liga Rural ao repositório GitHub igorCruz23/projeto_liga_academica sem sobrescrever conteúdo remoto existente.
+- [x] Definir as regras de cálculo para custos fixos, variáveis, margens, ponto de equilíbrio, comparação e atividades.
+- [x] Evoluir o lançamento financeiro com custo fixo, custo variável, atividade produtiva, competência e estado de liquidação.
+- [x] Implementar filtros por categoria, atividade, período e estado de liquidação.
+- [x] Implementar a edição e exclusão segura de lançamentos financeiros por titularidade.
+- [x] Calcular receita total, custo total, lucro bruto, lucro líquido, margem bruta e margem líquida.
+- [x] Calcular e apresentar o ponto de equilíbrio a partir dos custos fixos e da margem de contribuição.
+- [x] Comparar resultados entre o período selecionado e o período anterior equivalente.
+- [x] Apresentar resultados financeiros separados por atividade produtiva.
+- [x] Atualizar as páginas de fluxo de caixa e visão geral com os novos controlos e indicadores.
+- [x] Criar testes unitários e de rota para as regras financeiras ampliadas e operações de lançamento.
+- [x] Validar visualmente a aplicação em computador e telemóvel após a ampliação financeira.
+- [x] Registar uma revisão visual final das páginas de visão geral e fluxo de caixa em computador e telemóvel.
+- [x] Definir e documentar a entidade de utilizador por CPF, os dados pessoais mínimos e a relação muitos-para-muitos com propriedades.
+- [x] Criar e aplicar as tabelas `usuarios` e `usuario_propriedade` com integridade relacional.
+- [x] Implementar cadastro e consulta segura de utilizadores de domínio.
+- [x] Exigir a seleção de um utilizador vinculado antes de cadastrar uma propriedade.
+- [x] Implementar a vinculação de múltiplos utilizadores a cada propriedade sem remover vínculos existentes.
+- [x] Criar testes para CPF, cadastro, vínculos e bloqueio de criação de propriedade sem utilizador.
+- [x] Validar visualmente o novo fluxo de utilizador e propriedades em computador e telemóvel.
+- [x] Registar a revisão visual manual do fluxo de utilizadores e propriedades em computador e telemóvel.
+- [ ] Sincronizar as alterações recentes de fluxo financeiro e utilizadores no repositório GitHub igorCruz23/projeto_liga_academica e criar um commit descritivo.

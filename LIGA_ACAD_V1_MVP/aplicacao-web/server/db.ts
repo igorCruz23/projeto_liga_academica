@@ -1,9 +1,11 @@
-import { and, desc, eq, gte, lte } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   financialEntries,
   InsertUser,
   ruralProperties,
+  usuarioPropriedade,
+  usuarios,
   userProfiles,
   users,
 } from "../drizzle/schema";
@@ -123,6 +125,57 @@ export async function saveUserProfile(
   return getUserProfile(userId);
 }
 
+export async function listDomainUsersByCreator(createdById: number) {
+  const db = await requireDb();
+  return db
+    .select()
+    .from(usuarios)
+    .where(eq(usuarios.createdById, createdById))
+    .orderBy(desc(usuarios.createdAt));
+}
+
+export async function getDomainUserByCpf(cpf: string, createdById: number) {
+  const db = await requireDb();
+  const result = await db
+    .select()
+    .from(usuarios)
+    .where(and(eq(usuarios.cpf, cpf), eq(usuarios.createdById, createdById)))
+    .limit(1);
+  return result[0] ?? null;
+}
+
+export async function createDomainUser(
+  values: Omit<typeof usuarios.$inferInsert, "createdAt" | "updatedAt">
+) {
+  const db = await requireDb();
+  await db.insert(usuarios).values(values);
+  return getDomainUserByCpf(values.cpf, values.createdById);
+}
+
+export async function listPropertyDomainUsers(propertyId: number) {
+  const db = await requireDb();
+  return db
+    .select({ cpf: usuarios.cpf, name: usuarios.name, sex: usuarios.sex })
+    .from(usuarioPropriedade)
+    .innerJoin(usuarios, eq(usuarioPropriedade.userCpf, usuarios.cpf))
+    .where(eq(usuarioPropriedade.propertyId, propertyId))
+    .orderBy(usuarios.name);
+}
+
+async function assertDomainUsersInTransaction(
+  tx: any,
+  userCpfs: string[],
+  createdById: number
+) {
+  const selectedUsers = await tx
+    .select({ cpf: usuarios.cpf })
+    .from(usuarios)
+    .where(and(inArray(usuarios.cpf, userCpfs), eq(usuarios.createdById, createdById)));
+  if (selectedUsers.length !== userCpfs.length) {
+    throw new Error("Um ou mais utilizadores selecionados não estão disponíveis para esta conta.");
+  }
+}
+
 export async function listPropertiesByOwner(ownerId: number) {
   const db = await requireDb();
   return db
@@ -166,6 +219,44 @@ export async function createProperty(
   const result = await db.insert(ruralProperties).values({ ownerId, ...values });
   const createdId = Number(result[0].insertId);
   return getOwnedProperty(createdId, ownerId);
+}
+
+export async function createPropertyWithUsers(
+  ownerId: number,
+  values: Omit<typeof ruralProperties.$inferInsert, "id" | "ownerId" | "createdAt" | "updatedAt">,
+  userCpfs: string[]
+) {
+  const db = await requireDb();
+  return db.transaction(async tx => {
+    await assertDomainUsersInTransaction(tx, userCpfs, ownerId);
+    const result = await tx.insert(ruralProperties).values({ ownerId, ...values });
+    const propertyId = Number(result[0].insertId);
+    await tx.insert(usuarioPropriedade).values(
+      userCpfs.map(userCpf => ({ userCpf, propertyId }))
+    );
+    const property = await tx
+      .select()
+      .from(ruralProperties)
+      .where(eq(ruralProperties.id, propertyId))
+      .limit(1);
+    return property[0] ?? null;
+  });
+}
+
+export async function addUsersToProperty(propertyId: number, ownerId: number, userCpfs: string[]) {
+  const db = await requireDb();
+  await db.transaction(async tx => {
+    await assertDomainUsersInTransaction(tx, userCpfs, ownerId);
+    for (const userCpf of userCpfs) {
+      const existing = await tx
+        .select({ userCpf: usuarioPropriedade.userCpf })
+        .from(usuarioPropriedade)
+        .where(and(eq(usuarioPropriedade.userCpf, userCpf), eq(usuarioPropriedade.propertyId, propertyId)))
+        .limit(1);
+      if (!existing.length) await tx.insert(usuarioPropriedade).values({ userCpf, propertyId });
+    }
+  });
+  return listPropertyDomainUsers(propertyId);
 }
 
 type PropertyDeactivationDatabase = {
@@ -226,4 +317,33 @@ export async function createFinancialEntry(
     .where(eq(financialEntries.id, createdId))
     .limit(1);
   return created[0] ?? null;
+}
+
+export async function getPropertyEntry(entryId: number, propertyId: number) {
+  const db = await requireDb();
+  const result = await db
+    .select()
+    .from(financialEntries)
+    .where(and(eq(financialEntries.id, entryId), eq(financialEntries.propertyId, propertyId)))
+    .limit(1);
+  return result[0] ?? null;
+}
+
+export async function updateFinancialEntry(
+  entryId: number,
+  values: Partial<Omit<typeof financialEntries.$inferInsert, "id" | "propertyId" | "createdById" | "createdAt" | "updatedAt">>
+) {
+  const db = await requireDb();
+  await db
+    .update(financialEntries)
+    .set({ ...values, updatedAt: new Date() })
+    .where(eq(financialEntries.id, entryId));
+
+  const result = await db.select().from(financialEntries).where(eq(financialEntries.id, entryId)).limit(1);
+  return result[0] ?? null;
+}
+
+export async function deleteFinancialEntry(entryId: number) {
+  const db = await requireDb();
+  await db.delete(financialEntries).where(eq(financialEntries.id, entryId));
 }
